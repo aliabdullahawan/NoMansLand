@@ -23,7 +23,7 @@ MonoBehaviour:
   rpm: 400
   magSize: 7
   pellets: 1
-  reloadTime: 2.2
+  reloadTime: 1.8
   projectile: 0
   muzzleVelocity: 800
   gravityScale: 1

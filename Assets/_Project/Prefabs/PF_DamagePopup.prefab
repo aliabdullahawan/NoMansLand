@@ -134,8 +134,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1
-  m_fontSizeBase: 1
+  m_fontSize: 4
+  m_fontSizeBase: 4
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -197,3 +197,5 @@ MonoBehaviour:
   _text: {fileID: 2317927250277078245}
   _lifetime: 0.9
   _riseSpeed: 1.2
+  _normalSize: 4
+  _headshotSize: 5.5

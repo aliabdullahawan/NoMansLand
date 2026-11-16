@@ -19,9 +19,12 @@ public class WeaponController : MonoBehaviour
     [Header("Feedback")]
     [SerializeField] GameObject _damagePopupPrefab;
     [SerializeField] float _popupHeight = 1.2f;
+    [SerializeField] bool _showDamageNumbers = true;
+
 
     [Header("Reload")]
     [SerializeField] bool _autoReload = true;
+
 
 
 
@@ -199,10 +202,12 @@ public class WeaponController : MonoBehaviour
 
     void SpawnPopup(Vector3 worldPos, float damage, bool headshot)
     {
+        if (!_showDamageNumbers) return;
         if (_damagePopupPrefab == null) return;
         var go = Instantiate(_damagePopupPrefab, worldPos + Vector3.up * _popupHeight, Quaternion.identity);
         go.GetComponent<DamagePopup>()?.Show(damage, headshot);
     }
+
 
     void StartReload()
     {
