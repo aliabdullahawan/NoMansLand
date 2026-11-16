@@ -16,6 +16,15 @@ public class WeaponController : MonoBehaviour
     [SerializeField] Camera _camera;
     [SerializeField] float _defaultFov = 60f;
 
+    [Header("Feedback")]
+    [SerializeField] GameObject _damagePopupPrefab;
+    [SerializeField] float _popupHeight = 1.2f;
+
+    [Header("Reload")]
+    [SerializeField] bool _autoReload = true;
+
+
+
     int _current;
     int[] _ammo = new int[2];
     float _nextFireTime;
@@ -73,10 +82,7 @@ public class WeaponController : MonoBehaviour
     {
         var kb = Keyboard.current;
         if (kb == null || !kb.rKey.wasPressedThisFrame) return;
-        if (IsReloading || _ammo[_current] >= CurrentWeapon.magSize) return;
-
-        _reloadEndTime = Time.time + CurrentWeapon.reloadTime;
-        Invoke(nameof(FinishReload), CurrentWeapon.reloadTime);
+        StartReload();
     }
 
     void FinishReload()
@@ -99,7 +105,11 @@ public class WeaponController : MonoBehaviour
         if (Time.time < _nextFireTime) return;
         if (IsReloading) return;
         if (_motor.IsSprinting) return;
-        if (_ammo[_current] <= 0) return;
+        if (_ammo[_current] <= 0)
+        {
+            if (_autoReload) StartReload();
+            return;
+        }
 
         _nextFireTime = Time.time + CurrentWeapon.SecondsPerShot;
         Fire();
@@ -116,12 +126,17 @@ public class WeaponController : MonoBehaviour
                 dir = (dir + Random.insideUnitSphere * 0.06f).normalized;
 
             if (Physics.Raycast(_camPivot.position, dir, out RaycastHit hit, 600f,
-                                _hitMask, QueryTriggerInteraction.Ignore))
+                    _hitMask, QueryTriggerInteraction.Ignore))
             {
                 var health = hit.collider.GetComponentInParent<Health>();
                 if (health != null)
-                    health.TakeDamage(ComputeDamage(hit, dir), hit.collider);
+                {
+                    float dmg = ComputeDamage(hit, dir);
+                    health.TakeDamage(dmg, hit.collider);
+                    SpawnPopup(hit.point, dmg, IsHeadshot(hit.collider));
+                }
             }
+
         }
 
         ApplyRecoil();
@@ -175,4 +190,27 @@ public class WeaponController : MonoBehaviour
         _shotIndex = 0;
         _nextFireTime = Time.time + 0.25f;
     }
+
+    static bool IsHeadshot(Collider col)
+    {
+        var hb = col.GetComponent<Hitbox>();
+        return hb != null && hb.isHead;
+    }
+
+    void SpawnPopup(Vector3 worldPos, float damage, bool headshot)
+    {
+        if (_damagePopupPrefab == null) return;
+        var go = Instantiate(_damagePopupPrefab, worldPos + Vector3.up * _popupHeight, Quaternion.identity);
+        go.GetComponent<DamagePopup>()?.Show(damage, headshot);
+    }
+
+    void StartReload()
+    {
+        if (IsReloading || CurrentWeapon == null) return;
+        if (_ammo[_current] >= CurrentWeapon.magSize) return;
+
+        _reloadEndTime = Time.time + CurrentWeapon.reloadTime;
+        Invoke(nameof(FinishReload), CurrentWeapon.reloadTime);
+    }
+
 }

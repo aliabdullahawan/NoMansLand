@@ -4,6 +4,13 @@ public class Health : MonoBehaviour
 {
     [SerializeField] float _maxHealth = 100f;
 
+    [SerializeField] bool _autoRespawn = false;
+    [SerializeField] float _respawnDelay = 3f;
+
+    void OnEnable() => OnDied += HandleDeath;
+    void OnDisable() => OnDied -= HandleDeath;
+
+
     public float Current { get; private set; }
     public float Max => _maxHealth;
     public bool IsDead => Current <= 0f;
@@ -19,10 +26,22 @@ public class Health : MonoBehaviour
         if (IsDead || amount <= 0f) return;
 
         Current = Mathf.Max(0f, Current - amount);
+        Debug.Log($"[Health] {name} took {amount:F1} → {Current:F1}/{_maxHealth}");
         OnDamaged?.Invoke(amount);
 
-        if (IsDead) OnDied?.Invoke();
+        if (IsDead)
+        {
+            Debug.Log($"[Health] {name} DIED");
+            OnDied?.Invoke();
+        }
     }
+
+    void HandleDeath()
+    {
+        if (!_autoRespawn) return;
+        Invoke(nameof(ResetHealth), _respawnDelay);
+    }
+
 
     public void Heal(float amount)
     {
