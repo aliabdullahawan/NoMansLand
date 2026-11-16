@@ -31,14 +31,7 @@ MonoBehaviour:
   adsSpread: 0
   moveSpreadAdd: 1.5
   recoilPattern:
-  - {x: 0.05, y: 0.35}
-  - {x: -0.08, y: 0.3}
-  - {x: 0.12, y: 0.28}
-  - {x: -0.1, y: 0.26}
-  - {x: 0.15, y: 0.24}
-  - {x: -0.12, y: 0.22}
-  - {x: 0.18, y: 0.2}
-  - {x: -0.15, y: 0.18}
+  - {x: 0, y: 1.8}
   recoilScale: 2
   adsRecoilScale: 0.7
   adsFov: 25
