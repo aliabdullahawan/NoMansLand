@@ -3,7 +3,7 @@ using TMPro;
 
 public class DamagePopup : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI _text;
+    [SerializeField] TMP_Text _text;
     [SerializeField] float _lifetime = 0.9f;
     [SerializeField] float _riseSpeed = 1.2f;
 
@@ -30,4 +30,11 @@ public class DamagePopup : MonoBehaviour
 
         if (_age >= _lifetime) gameObject.SetActive(false);
     }
+
+    void LateUpdate()
+    {
+        if (Camera.main != null)
+            transform.rotation = Camera.main.transform.rotation;
+    }
+
 }
