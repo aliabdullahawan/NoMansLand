@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87f006ae41be9ab498a3c76617c2066f, type: 3}
+  m_Name: WD_PT_M1911
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  displayName: M1911
+  weaponClass: 6
+  fireMode: 1
+  damage: 26
+  headMultiplier: 2
+  falloffStart: 30
+  falloffEnd: 80
+  minDamageScale: 0.6
+  rpm: 400
+  magSize: 7
+  pellets: 1
+  reloadTime: 2.2
+  projectile: 0
+  muzzleVelocity: 800
+  gravityScale: 1
+  hipSpread: 2
+  adsSpread: 0.4
+  moveSpreadAdd: 1.5
+  recoilPattern:
+  - {x: 0.05, y: 0.35}
+  - {x: -0.08, y: 0.3}
+  - {x: 0.12, y: 0.28}
+  - {x: -0.1, y: 0.26}
+  - {x: 0.15, y: 0.24}
+  - {x: -0.12, y: 0.22}
+  - {x: 0.18, y: 0.2}
+  - {x: -0.15, y: 0.18}
+  recoilScale: 0.6
+  adsRecoilScale: 0.7
+  adsFov: 60
+  adsTime: 0.2
+  viewModel: {fileID: 0}
+  worldModel: {fileID: 0}
+  fireClose: []
+  fireDistant: []
+  reload: {fileID: 0}
