@@ -264,7 +264,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &961739750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,6 +475,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1882051003}
   - component: {fileID: 1882051004}
+  - component: {fileID: 1882051006}
+  - component: {fileID: 1882051005}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -523,6 +525,49 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &1882051005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882051002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfc7869e65a2904599f5b0373089370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLook
+  _pivot: {fileID: 1809377097}
+  _camera: {fileID: 961739752}
+  _sensitivity: 0.12
+  _minPitch: -85
+  _maxPitch: 85
+  _recoilRecoverySpeed: 25
+  RecoilKick: {x: 0, y: 0}
+--- !u!114 &1882051006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882051002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11783e368537a1f42a5299e14ae7137f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMotor
+  _walkSpeed: 4.2
+  _sprintSpeed: 6.8
+  _crouchSpeed: 2.2
+  _jumpHeight: 1
+  _gravity: -20
+  _standHeight: 1.8
+  _crouchHeight: 1.1
+  _crouchLerpSpeed: 10
+  _groundCheckDistance: 0.15
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &1967933836
 GameObject:
   m_ObjectHideFlags: 0
