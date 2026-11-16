@@ -41,7 +41,7 @@ MonoBehaviour:
   - {x: -0.15, y: 0.18}
   recoilScale: 1
   adsRecoilScale: 0.7
-  adsFov: 55
+  adsFov: 52
   adsTime: 0.2
   viewModel: {fileID: 0}
   worldModel: {fileID: 0}
