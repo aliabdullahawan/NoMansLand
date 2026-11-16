@@ -17,6 +17,10 @@ public class PlayerMotor : MonoBehaviour
     [SerializeField] float _standHeight = 1.8f;
     [SerializeField] float _crouchHeight = 1.1f;
     [SerializeField] float _crouchLerpSpeed = 10f;
+    [SerializeField] Transform _cameraPivot; 
+    [SerializeField] float _standEyeHeight = 1.6f; 
+    [SerializeField] float _crouchEyeHeight = 0.9f; 
+
 
     [Header("Ground Check")]
     [SerializeField] float _groundCheckDistance = 0.15f;
@@ -106,9 +110,19 @@ public class PlayerMotor : MonoBehaviour
     void ApplyCrouchHeight()
     {
         float targetHeight = IsCrouching ? _crouchHeight : _standHeight;
-        if (Mathf.Approximately(_cc.height, targetHeight)) return;
+        if (!Mathf.Approximately(_cc.height, targetHeight))
+        {
+            _cc.height = Mathf.Lerp(_cc.height, targetHeight, _crouchLerpSpeed * Time.deltaTime);
+            _cc.center = Vector3.up * _cc.height * 0.5f;
+        }
 
-        _cc.height = Mathf.Lerp(_cc.height, targetHeight, _crouchLerpSpeed * Time.deltaTime);
-        _cc.center = Vector3.up * _cc.height * 0.5f;
+        if (_cameraPivot != null)
+        {
+            float targetEye = IsCrouching ? _crouchEyeHeight : _standEyeHeight;
+            Vector3 p = _cameraPivot.localPosition;
+            p.y = Mathf.Lerp(p.y, targetEye, _crouchLerpSpeed * Time.deltaTime);
+            _cameraPivot.localPosition = p;
+        }
     }
+
 }
