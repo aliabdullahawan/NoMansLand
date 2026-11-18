@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Mirror;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerMotor : MonoBehaviour
+public class PlayerMotor : NetworkBehaviour
 {
     [Header("Speeds (m/s)")]
     [SerializeField] float _walkSpeed = 4.2f;
@@ -47,6 +48,11 @@ public class PlayerMotor : MonoBehaviour
 
     void OnEnable()
     {
+        // Intentionally empty, input setup is moved below
+    }
+
+    public override void OnStartLocalPlayer()
+    {
         _controls.Player.Enable();
         _controls.Player.Jump.performed += OnJump;
         _controls.Player.Sprint.performed += OnSprintStart;
@@ -55,14 +61,17 @@ public class PlayerMotor : MonoBehaviour
         _controls.Player.Crouch.canceled += OnCrouchEnd;
     }
 
+
     void OnDisable()
     {
+        _controls.Player.Disable();
+
+        // Good practice: Unsubscribe to prevent memory leaks
         _controls.Player.Jump.performed -= OnJump;
         _controls.Player.Sprint.performed -= OnSprintStart;
         _controls.Player.Sprint.canceled -= OnSprintEnd;
         _controls.Player.Crouch.performed -= OnCrouchStart;
         _controls.Player.Crouch.canceled -= OnCrouchEnd;
-        _controls.Player.Disable();
     }
 
     void OnJump(InputAction.CallbackContext _) => _jumpQueued = true;
@@ -73,6 +82,7 @@ public class PlayerMotor : MonoBehaviour
 
     void Update()
     {
+        if (!isLocalPlayer) return;
         _moveInput = _controls.Player.Move.ReadValue<Vector2>();
 
         _isGrounded = Physics.SphereCast(

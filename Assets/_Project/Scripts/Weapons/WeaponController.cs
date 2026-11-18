@@ -1,7 +1,8 @@
 using UnityEngine;
+using Mirror;
 using UnityEngine.InputSystem;
 
-public class WeaponController : MonoBehaviour
+public class WeaponController : NetworkBehaviour
 {
     [Header("Loadout")]
     [SerializeField] WeaponData[] _loadout = new WeaponData[2];
@@ -50,6 +51,7 @@ public class WeaponController : MonoBehaviour
 
     void Update()
     {
+        if (!isLocalPlayer) return;
         if (CurrentWeapon == null) return;
 
         HandleAds();

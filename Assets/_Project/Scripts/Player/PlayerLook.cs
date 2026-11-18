@@ -1,7 +1,8 @@
 using UnityEngine;
+using Mirror;
 using UnityEngine.InputSystem;
 
-public class PlayerLook : MonoBehaviour
+public class PlayerLook : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] Transform _pivot;
@@ -41,6 +42,7 @@ public class PlayerLook : MonoBehaviour
 
     void Update()
     {
+        if (!isLocalPlayer) return;
         if (Cursor.lockState != CursorLockMode.Locked) return;
 
         Vector2 mouseDelta = _controls.Player.Look.ReadValue<Vector2>() * _sensitivity;
@@ -53,6 +55,12 @@ public class PlayerLook : MonoBehaviour
         _pitch = Mathf.Clamp(_pitch - pitchDelta, _minPitch, _maxPitch);
         _pivot.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
         transform.Rotate(Vector3.up * yaw, Space.World);
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        LockCursor(true);
+        if (_camera != null) _camera.gameObject.SetActive(true);
     }
 
     static void LockCursor(bool locked)
