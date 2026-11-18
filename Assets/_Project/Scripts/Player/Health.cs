@@ -6,11 +6,12 @@ public class Health : NetworkBehaviour
     [SerializeField] float _maxHealth = 100f;
     [SerializeField] bool _autoRespawn = false;
     [SerializeField] float _respawnDelay = 3f;
+    [SerializeField] GameObject _visual;
 
     [SyncVar(hook = nameof(OnHealthChanged))]
     public float Current = 100f;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(OnDeadChanged))]
     public bool IsDead;
 
     public float Max => _maxHealth;
@@ -36,6 +37,9 @@ public class Health : NetworkBehaviour
         if (Current <= 0f)
         {
             IsDead = true;
+            var motor = GetComponent<PlayerMotor>();
+            if (motor != null) motor.IsDead = true;
+            
             Debug.Log($"[Health] {name} DIED");
 
             if (_autoRespawn)
@@ -50,6 +54,9 @@ public class Health : NetworkBehaviour
     {
         Current = _maxHealth;
         IsDead = false;
+        var motor = GetComponent<PlayerMotor>();
+        if (motor != null) motor.IsDead = false;
+        
     }
 
     void OnHealthChanged(float oldValue, float newValue)
@@ -59,5 +66,10 @@ public class Health : NetworkBehaviour
 
         if (newValue <= 0f && oldValue > 0f)
             OnDied?.Invoke();
+    }
+
+    void OnDeadChanged(bool oldValue, bool newValue)
+    {
+        if (_visual != null) _visual.SetActive(!newValue);
     }
 }

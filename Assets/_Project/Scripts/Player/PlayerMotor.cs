@@ -35,6 +35,7 @@ public class PlayerMotor : NetworkBehaviour
     bool _isGrounded;
 
     public bool IsSprinting { get; private set; }
+    public bool IsDead { get; set; }
     public bool IsCrouching { get; private set; }
     public bool IsGrounded => _isGrounded;
     public float Speed01 { get; private set; }
@@ -82,6 +83,7 @@ public class PlayerMotor : NetworkBehaviour
     void Update()
     {
         if (!isLocalPlayer) return;
+        if (IsDead) return;
         _moveInput = _controls.Player.Move.ReadValue<Vector2>();
 
         _isGrounded = Physics.SphereCast(

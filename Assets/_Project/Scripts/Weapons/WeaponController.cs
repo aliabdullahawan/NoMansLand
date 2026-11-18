@@ -103,7 +103,6 @@ public class WeaponController : NetworkBehaviour
 
     void HandleFire()
     {
-        Debug.Log($"[AMMO] local={isLocalPlayer} owned={netIdentity.isOwned} current={CurrentAmmo} server={isServer}");
 
         var mouse = Mouse.current;
         if (mouse == null) return;
@@ -135,6 +134,7 @@ public class WeaponController : NetworkBehaviour
     [Command]
     void CmdFire(Vector3 origin, Vector3 dir)
     {
+        Debug.Log($"[HIT] shooter={netIdentity.name} server={isServer} ammo={GetAmmo(_current)}");
         if (CurrentWeapon == null) return;
         if (GetAmmo(_current) <= 0) return;
         if (Time.time < _serverNextFireTime) return;
@@ -152,6 +152,7 @@ public class WeaponController : NetworkBehaviour
             if (Physics.Raycast(origin, pelletDir, out RaycastHit hit, 600f,
                                 _hitMask, QueryTriggerInteraction.Ignore))
             {
+                Debug.Log($"[HIT] {netIdentity.name} hit '{hit.collider.name}' root='{hit.collider.transform.root.name}' health={(hit.collider.GetComponentInParent<Health>() != null)}");
                 var health = hit.collider.GetComponentInParent<Health>();
                 if (health != null)
                 {
@@ -159,6 +160,10 @@ public class WeaponController : NetworkBehaviour
                     health.ServerTakeDamage(dmg, netIdentity);
                     SpawnPopup(hit.point, dmg, IsHeadshot(hit.collider));
                 }
+            }
+            else
+            {
+                Debug.Log($"[HIT] {netIdentity.name} hit NOTHING");
             }
         }
 

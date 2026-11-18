@@ -42,6 +42,7 @@ public class PlayerLook : NetworkBehaviour
     void Update()
     {
         if (!isLocalPlayer) return;
+        if (GetComponent<Health>() != null && GetComponent<Health>().IsDead) return;
         if (Cursor.lockState != CursorLockMode.Locked) return;
 
         Vector2 mouseDelta = _controls.Player.Look.ReadValue<Vector2>() * _sensitivity;

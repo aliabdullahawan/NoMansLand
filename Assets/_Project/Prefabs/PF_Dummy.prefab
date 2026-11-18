@@ -29,11 +29,11 @@ Transform:
   m_GameObject: {fileID: 1126273933473030115}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.014, y: 1.101, z: 0.026}
+  m_LocalPosition: {x: 0.014, y: 1.1009998, z: 0.026000023}
   m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7810760270041831983}
+  m_Father: {fileID: 3399940969257139293}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3137668347828740137
 MeshFilter:
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Hitbox
   isHead: 1
   multiplier: 1
---- !u!1 &6991231078377034981
+--- !u!1 &5827263502827733523
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,52 +135,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7810760270041831983}
-  - component: {fileID: 6261498463848110888}
-  - component: {fileID: 6077758993057280924}
-  - component: {fileID: 3457012328970650601}
-  - component: {fileID: 4356488974564122149}
-  - component: {fileID: 7307084035655586617}
-  - component: {fileID: 6310397137390455266}
-  - component: {fileID: 8007465207305312744}
+  - component: {fileID: 3399940969257139293}
+  - component: {fileID: 6863403714617917789}
+  - component: {fileID: 6602728650434318709}
   m_Layer: 0
-  m_Name: PF_Dummy
+  m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7810760270041831983
+--- !u!4 &3399940969257139293
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6991231078377034981}
+  m_GameObject: {fileID: 5827263502827733523}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 8}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3667819092788514149}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 7810760270041831983}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6261498463848110888
+--- !u!33 &6863403714617917789
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6991231078377034981}
+  m_GameObject: {fileID: 5827263502827733523}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &6077758993057280924
+--- !u!23 &6602728650434318709
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6991231078377034981}
+  m_GameObject: {fileID: 5827263502827733523}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -223,6 +218,43 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &6991231078377034981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7810760270041831983}
+  - component: {fileID: 3457012328970650601}
+  - component: {fileID: 4356488974564122149}
+  - component: {fileID: 7307084035655586617}
+  - component: {fileID: 6310397137390455266}
+  - component: {fileID: 8007465207305312744}
+  m_Layer: 0
+  m_Name: PF_Dummy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7810760270041831983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6991231078377034981}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3399940969257139293}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &3457012328970650601
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -264,6 +296,7 @@ MonoBehaviour:
   _maxHealth: 100
   _autoRespawn: 1
   _respawnDelay: 3
+  _visual: {fileID: 5827263502827733523}
   Current: 100
   IsDead: 0
 --- !u!114 &7307084035655586617
