@@ -184,8 +184,9 @@ GameObject:
   - component: {fileID: 4853590247701506741}
   - component: {fileID: 2989180712692406646}
   - component: {fileID: 2007565475498486594}
+  - component: {fileID: -3872833776732690366}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PF_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,6 +245,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11783e368537a1f42a5299e14ae7137f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMotor
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _walkSpeed: 4.2
   _sprintSpeed: 6.8
   _crouchSpeed: 2.3
@@ -271,6 +275,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dfc7869e65a2904599f5b0373089370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLook
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   _pivot: {fileID: 7382957670043000667}
   _camera: {fileID: 6331327178533277566}
   _sensitivity: 0.12
@@ -290,6 +297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff2ab98ee55ba1649b3ce362bd8c6a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
   _loadout:
   - {fileID: 11400000, guid: 20ac57794b74d6142bc972ca2bfd8e6c, type: 2}
   - {fileID: 11400000, guid: 0eea714f17462f140afffe1bfe2b1156, type: 2}
@@ -340,7 +350,7 @@ MonoBehaviour:
   target: {fileID: 8343024349704065633}
   syncPosition: 1
   syncRotation: 1
-  syncScale: 1
+  syncScale: 0
   onlySyncOnChange: 1
   compressRotation: 1
   interpolatePosition: 1
@@ -356,6 +366,20 @@ MonoBehaviour:
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
+--- !u!114 &-3872833776732690366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4058508721641971822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 683f0b69a592d4b438b5e29c72f7cf0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AmmoHUD
+  _text: {fileID: 2907368238233187331, guid: 24027c9abff40e8489da5c0e93f687ff, type: 3}
+  _weapons: {fileID: 0}
 --- !u!1 &5377321064124779057
 GameObject:
   m_ObjectHideFlags: 0

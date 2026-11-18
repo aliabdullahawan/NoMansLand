@@ -500,7 +500,7 @@ MonoBehaviour:
   offlineScene: Assets/_Project/Scenes/MainMenu.unity
   onlineScene: Assets/_Project/Scenes/Map_Greybox.unity
   offlineSceneLoadDelay: 0
-  transport: {fileID: 0}
+  transport: {fileID: 1505528784}
   networkAddress: localhost
   maxConnections: 16
   disconnectInactiveConnections: 0
@@ -509,7 +509,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 4058508721641971822, guid: 7aa3efacb820c4e46b7fe4485eb6ca9b, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 6991231078377034981, guid: 39aec5a6efbc3c741ac89e871371ed3d, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2

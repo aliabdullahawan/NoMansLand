@@ -1,53 +1,63 @@
 using UnityEngine;
+using Mirror;
 
-public class Health : MonoBehaviour
+public class Health : NetworkBehaviour
 {
     [SerializeField] float _maxHealth = 100f;
-
     [SerializeField] bool _autoRespawn = false;
     [SerializeField] float _respawnDelay = 3f;
 
-    void OnEnable() => OnDied += HandleDeath;
-    void OnDisable() => OnDied -= HandleDeath;
+    [SyncVar(hook = nameof(OnHealthChanged))]
+    public float Current = 100f;
 
+    [SyncVar]
+    public bool IsDead;
 
-    public float Current { get; private set; }
     public float Max => _maxHealth;
-    public bool IsDead => Current <= 0f;
     public float Normalized => _maxHealth > 0f ? Current / _maxHealth : 0f;
 
     public event System.Action<float> OnDamaged;
     public event System.Action OnDied;
 
-    void Awake() => Current = _maxHealth;
+    public override void OnStartServer()
+    {
+        Current = _maxHealth;
+        IsDead = false;
+    }
 
-    public void TakeDamage(float amount, Collider hitCollider)
+    [Server]
+    public void ServerTakeDamage(float amount, NetworkIdentity attacker)
     {
         if (IsDead || amount <= 0f) return;
 
         Current = Mathf.Max(0f, Current - amount);
         Debug.Log($"[Health] {name} took {amount:F1} → {Current:F1}/{_maxHealth}");
-        OnDamaged?.Invoke(amount);
 
-        if (IsDead)
+        if (Current <= 0f)
         {
+            IsDead = true;
             Debug.Log($"[Health] {name} DIED");
-            OnDied?.Invoke();
+
+            if (_autoRespawn)
+                Invoke(nameof(ServerRespawn), _respawnDelay);
         }
     }
 
-    void HandleDeath()
+
+
+    [Server]
+    void ServerRespawn()
     {
-        if (!_autoRespawn) return;
-        Invoke(nameof(ResetHealth), _respawnDelay);
+        Current = _maxHealth;
+        IsDead = false;
     }
 
-
-    public void Heal(float amount)
+    void OnHealthChanged(float oldValue, float newValue)
     {
-        if (IsDead) return;
-        Current = Mathf.Min(_maxHealth, Current + amount);
-    }
+        if (newValue < oldValue)
+            OnDamaged?.Invoke(oldValue - newValue);
 
-    public void ResetHealth() => Current = _maxHealth;
+        if (newValue <= 0f && oldValue > 0f)
+            OnDied?.Invoke();
+    }
 }
