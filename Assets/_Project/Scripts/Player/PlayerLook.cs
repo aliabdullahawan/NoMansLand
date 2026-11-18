@@ -7,6 +7,7 @@ public class PlayerLook : NetworkBehaviour
     [Header("References")]
     [SerializeField] Transform _pivot;
     [SerializeField] Camera _camera;
+    [SerializeField] GameObject _body;
 
     [Header("Sensitivity")]
     [SerializeField] float _sensitivity = 0.12f;
@@ -29,14 +30,12 @@ public class PlayerLook : NetworkBehaviour
 
     void OnEnable()
     {
-        _controls.Player.Enable();
-        LockCursor(true);
-        if (_camera != null) _camera.gameObject.SetActive(true);
+        // Nothing here — cursor and camera are set up in OnStartLocalPlayer only.
     }
 
     void OnDisable()
     {
-        _controls.Player.Disable();
+        if (!isLocalPlayer) return;
         LockCursor(false);
     }
 
@@ -59,8 +58,10 @@ public class PlayerLook : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
+        _controls.Player.Enable();
         LockCursor(true);
         if (_camera != null) _camera.gameObject.SetActive(true);
+        if (_body != null) _body.SetActive(false);
     }
 
     static void LockCursor(bool locked)
@@ -68,4 +69,13 @@ public class PlayerLook : NetworkBehaviour
         Cursor.lockState = locked ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = !locked;
     }
+
+    public override void OnStartClient()
+    {
+        if (isLocalPlayer) return;
+
+        var listener = GetComponentInChildren<AudioListener>(true);
+        if (listener != null) listener.enabled = false;
+    }
+
 }

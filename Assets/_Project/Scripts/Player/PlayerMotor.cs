@@ -64,9 +64,8 @@ public class PlayerMotor : NetworkBehaviour
 
     void OnDisable()
     {
+        if (!isLocalPlayer) return;
         _controls.Player.Disable();
-
-        // Good practice: Unsubscribe to prevent memory leaks
         _controls.Player.Jump.performed -= OnJump;
         _controls.Player.Sprint.performed -= OnSprintStart;
         _controls.Player.Sprint.canceled -= OnSprintEnd;

@@ -61,7 +61,6 @@ public class WeaponController : NetworkBehaviour
 
     void Update()
     {
-        if (!isLocalPlayer) { Debug.Log($"[WC] not local player on {name}"); return; }
         if (!isLocalPlayer) return;
         if (CurrentWeapon == null) return;
 
@@ -104,6 +103,8 @@ public class WeaponController : NetworkBehaviour
 
     void HandleFire()
     {
+        Debug.Log($"[AMMO] local={isLocalPlayer} owned={netIdentity.isOwned} current={CurrentAmmo} server={isServer}");
+
         var mouse = Mouse.current;
         if (mouse == null) return;
 
